@@ -1,0 +1,22 @@
+
+
+CREATE COMPUTE MODULE getLjSrv_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		DECLARE booksSize INTEGER CARDINALITY (InputRoot.JSON.Data.Item[]);
+		DECLARE i INT 0;
+		
+		SET OutputRoot.JSON.Data.livros TYPE = JSON.Array; 
+		
+		WHILE i < booksSize DO 
+			
+			SET i = i + 1;
+			
+				SET OutputRoot.JSON.Data.livros.Item[i].nome = InputRoot.JSON.Data.Item[i].name;
+				SET OutputRoot.JSON.Data.livros.Item[i].valor = InputRoot.JSON.Data.Item[i].value; 
+						
+		END WHILE;
+		
+	END;
+END MODULE;

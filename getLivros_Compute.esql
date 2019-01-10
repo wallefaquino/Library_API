@@ -1,0 +1,22 @@
+
+
+CREATE COMPUTE MODULE getLivros_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		DECLARE codGrupo CHARACTER;
+		
+		SET codGrupo = InputLocalEnvironment.REST.Input.Parameters.codGrupo;
+		
+		IF codGrupo = 'csCOD' THEN 
+			PROPAGATE TO TERMINAL 'out1'; 
+		ELSEIF codGrupo = 'ljSRV' THEN 
+			PROPAGATE TO TERMINAL 'out2';
+		ELSE 
+			SET OutputRoot.JSON.Data.Error = 'codGrupo inválido!';
+			PROPAGATE TO TERMINAL 'out3'; 
+		END IF;
+		
+		RETURN TRUE;
+	END;
+END MODULE;
